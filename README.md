@@ -1,24 +1,11 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+ - Projeto final da CJR.
 
-Things you may want to cover:
+ - Versão do rails: 5.1.1
 
-* Ruby version
+ - Versão do ruby: 2.3.1
 
-* System dependencies
+  -* Devemos implementar um site de vendas, com itens a disposição para compra
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+  -* O site deve ter um sistema de carrinho, login, com usuários anônimos, admin, e usuários normais.
