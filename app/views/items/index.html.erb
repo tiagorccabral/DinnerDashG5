@@ -1,5 +1,5 @@
-<h1>Listing items</h1>
- 
+<h1 align="center">Listando Todos os Itens</h1>
+
 <table class="table table-bordered">
   <tr>
     <th>Name</th>
@@ -7,13 +7,13 @@
     <th>Category</th>
     <th colspan="4">Price</th>
   </tr>
- 
+
   <% @items.each do |item| %>
     <tr>
       <td><%= item.name %></td>
       <td><%= item.description %></td>
       <td><%= item.category %></td>
-      <td><%= item.price %></td>
+      <td> R$ <%= item.price %></td>
       <td><%= link_to 'Show', item_path(item) %></td>
       <td><%= link_to 'Edit', edit_item_path(item) %></td>
       <td><%= link_to 'Destroy', item_path(item),
@@ -24,4 +24,6 @@
   <% end %>
 </table>
 <br>
-<%= link_to 'New item', new_item_path %>
+<p>
+   [ <%= link_to 'New item', new_item_path %> | <%= link_to 'Voltar', root_path %> ]
+</p>
