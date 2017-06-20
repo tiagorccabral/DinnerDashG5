@@ -3,11 +3,17 @@
 <table class="table table-bordered">
   <tr>
     <th>Name</th>
+    <th>Items</th>
   </tr>
 
-  <% @categories.each do |category| %>
+  <% @categories.order('name').each do |category| %>
     <tr>
-      <td><%= category.name %></td>
+      <td><%= link_to category.name, category_path(category)  %></td>
+      <td>
+        <% category.item_ids.each do |item_id| %>
+          <%= Item.find(item_id).name %><% if item_id != category.item_ids.last %>;<% end %>
+        <% end %>
+      </td>
   <% end %>
 </table>
 <br>
