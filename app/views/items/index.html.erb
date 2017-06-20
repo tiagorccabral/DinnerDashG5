@@ -14,7 +14,11 @@
       <td><%= item.name %></td>
       <td><%= item.description %></td>
       <td> R$ <%= item.price %></td>
-      <td><span>Preencher depois</span></td>
+      <td> 
+        <% item.category_ids.each do |category_id| %>
+          <%= Category.find(category_id).name %><% if category_id != item.category_ids.last %>;<% end %>
+        <% end %> 
+      </td>
       <td><%= link_to 'Show', item_path(item) %></td>
       <td><%= link_to 'Edit', edit_item_path(item) %></td>
       <td><%= link_to 'Destroy', item_path(item),
