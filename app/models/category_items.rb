@@ -1,0 +1,2 @@
+class CategoryItems < ApplicationRecord
+end
