@@ -4,15 +4,14 @@
   <tr>
     <th>Name</th>
     <th>Description</th>
-    <th>Category</th>
-    <th colspan="4">Price</th>
+    <th>Price</th>
+    <th colspan="4">Ações</th>
   </tr>
 
   <% @items.each do |item| %>
     <tr>
       <td><%= item.name %></td>
       <td><%= item.description %></td>
-      <td><%= item.category %></td>
       <td> R$ <%= item.price %></td>
       <td><%= link_to 'Show', item_path(item) %></td>
       <td><%= link_to 'Edit', edit_item_path(item) %></td>
