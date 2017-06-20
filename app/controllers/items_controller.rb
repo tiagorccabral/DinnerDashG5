@@ -28,7 +28,7 @@ class ItemsController < ApplicationController
 
   def update
 	  @item = Item.find(params[:id])
-	 
+
 	  if @item.update(item_params)
 	    redirect_to @item
 	  else
@@ -39,12 +39,12 @@ class ItemsController < ApplicationController
 	def destroy
     @item = Item.find(params[:id])
     @item.destroy
- 
+
     redirect_to items_path
   end
 
   private
   def item_params
-    params.require(:item).permit(:name, :description, :price)
+    params.require(:item).permit(:name, :description, :price, category_ids: [])
   end
 end

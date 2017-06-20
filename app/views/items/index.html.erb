@@ -5,6 +5,7 @@
     <th>Name</th>
     <th>Description</th>
     <th>Price</th>
+    <th>Categories</th>
     <th colspan="4">Ações</th>
   </tr>
 
@@ -13,6 +14,7 @@
       <td><%= item.name %></td>
       <td><%= item.description %></td>
       <td> R$ <%= item.price %></td>
+      <td><span>Preencher depois</span></td>
       <td><%= link_to 'Show', item_path(item) %></td>
       <td><%= link_to 'Edit', edit_item_path(item) %></td>
       <td><%= link_to 'Destroy', item_path(item),
