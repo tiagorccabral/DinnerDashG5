@@ -8,6 +8,12 @@
   <%= @item.description %>
 </p>
 
+<% if @article.categories.any? %>
+
+   <p>Categories: <%= render @article.categories %></p>
+
+<% end %>
+
 <p>
   <strong>Category:</strong>
 </p>
