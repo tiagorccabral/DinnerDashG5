@@ -11,8 +11,19 @@
       <td><%= link_to category.name, category_path(category) %></td>
       <td>
       	<% category.item_ids.each do |item_id| %>
-          <%= Item.find(item_id).name %><% if item_id != category.item_ids.last %>;<% end %>
+          <% @items << Item.find(item_id).name %>
         <% end %> 
+  
+        <% @items = @items.sort %>
+
+        <% @items.each do |itemName| %>
+          <%= link_to itemName, item_path(Item.find_by_name(itemName)) %>
+          <% if itemName != @items.last %>
+            <span>|</span>
+          <% end %>
+        <% end %>
+
+        <% @items.clear %> 
       </td>
   <% end %>
 </table>
