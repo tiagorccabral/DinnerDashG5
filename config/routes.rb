@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :items do
     member do
       put :add_to_cart
+      put :remove_from_cart
     end
   end
   resources :categories
@@ -11,7 +12,7 @@ Rails.application.routes.draw do
 
   get 'login', to: 'sessions#new'
   post 'login', to: 'sessions#create'
-  delete 'logout', to: 'sessions#destroy'
+  delete 'logout', to: 'sessions#delete'
 
   root 'welcome#home'
 end
