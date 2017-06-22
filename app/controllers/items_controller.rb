@@ -31,12 +31,10 @@ class ItemsController < ApplicationController
 
 	def add_to_cart
     @item = Item.find(params[:id])
-		@quantity = Item.new(params[:quantity])
-		
     if session[:current_cart].key? (@item.name)
-      session[:current_cart][@item.name] += @quantity
+      session[:current_cart][@item.name] += 1
     else
-      session[:current_cart][@item.name] = @quantity
+      session[:current_cart][@item.name] = 1
     end
 
     redirect_to items_path

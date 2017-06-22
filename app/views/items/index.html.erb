@@ -31,12 +31,6 @@
         <% @categories.clear %>
       </td>
       <td>
-        <%= form_for :item, url: add_to_cart_item_path(item), :method => :put do |f| %>
-        		<%= f.number_field :quantity, :step => "1" %>
-            <%= f.submit '\/' %>
-        <% end %>
-      </td>
-      <td>
         <%= link_to 'Adicionar ao carrinho',  add_to_cart_item_path(item), :method => :put %>
       </td>
        <td>
