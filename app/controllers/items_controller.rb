@@ -36,6 +36,8 @@ class ItemsController < ApplicationController
     else
       session[:current_cart][@item.name] = 1
     end  
+
+    redirect_to items_path
 	end
 
   def remove_from_cart
@@ -46,6 +48,7 @@ class ItemsController < ApplicationController
       else
         session[:current_cart].delete(@item.name)
       end
+      redirect_to items_path
     end
   end
 
