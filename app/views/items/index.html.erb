@@ -6,7 +6,7 @@
     <th>Description</th>
     <th>Price</th>
     <th>Categories</th>
-    <th colspan="4">Ações</th>
+    <th colspan="5">Ações</th>
   </tr>
 
   <% @items.each do |item| %>
@@ -28,8 +28,9 @@
           <% end %>
         <% end %>
 
-        <% @categories.clear %> 
+        <% @categories.clear %>
       </td>
+      <td> <%= link_to 'Adicionar',  add_to_cart_item_path(item), :method => :put  %> </td>
       <td><%= link_to 'Edit', edit_item_path(item) %></td>
       <td><%= link_to 'Destroy', item_path(item),
               method: :delete,

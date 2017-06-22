@@ -1,5 +1,7 @@
 class ItemsController < ApplicationController
 
+	before_action :set_cart , only: [:add_cart]
+
 	def index
     @items = Item.all
     @categories = []
@@ -27,6 +29,10 @@ class ItemsController < ApplicationController
   	end
   end
 
+	def add_to_cart
+
+	end
+
   def update
 	  @item = Item.find(params[:id])
 
@@ -48,4 +54,7 @@ class ItemsController < ApplicationController
   def item_params
     params.require(:item).permit(:name, :description, :price, category_ids: [])
   end
+	def set_cart
+		session[:current_cart] = []
+	end
 end
