@@ -39,6 +39,7 @@
     </tr>
   <% end %>
 </table>
+  <%= session[:current_cart] %>
 <br>
 <p>
    [ <%= link_to 'New item', new_item_path %> | <%= link_to 'Voltar', root_path %> ]
