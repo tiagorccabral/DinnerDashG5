@@ -2,7 +2,6 @@ Rails.application.routes.draw do
 
   resources :items do
     member do
-      get :set_amout_to_cart
       put :add_to_cart
       put :remove_from_cart
     end
