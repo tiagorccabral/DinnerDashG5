@@ -36,7 +36,7 @@ class ItemsController < ApplicationController
 	def add_to_cart
     @item = Item.find(params[:id])
 		@quantity = (params[:item][:quantity]).to_i
-    if session[:current_cart].key? (@item.name)
+    if session[:current_cart].key? (@item.name) 
       session[:current_cart][@item.name] += @quantity
     else
       session[:current_cart][@item.name] = @quantity
@@ -81,6 +81,5 @@ private
 
 	def set_cart
 		session[:current_cart] ||= {}
-		session[:cart_item_quantity] = 0
 	end
 end

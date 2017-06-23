@@ -33,11 +33,8 @@
       <td>
         <%= form_for :item, url: set_amout_to_cart_item_path(item), :method => :get  do |f| %>
           <%= f.number_field :quantity, :step => "1" %>
-          <%= f.submit '\/' %>
+          <%= f.submit 'Adicionar ao carrinho' %>
         <% end %>
-      </td>
-      <td>
-        <%= link_to 'Adicionar ao carrinho',  add_to_cart_item_path(item), :method => :put %>
       </td>
        <td>
         <%= link_to 'Remover do carrinho',  remove_from_cart_item_path(item), :method => :put %>
