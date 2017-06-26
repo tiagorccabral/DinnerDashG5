@@ -37,7 +37,6 @@ class ItemsController < ApplicationController
     else
       session[:current_cart][@item.name] = @quantity
     end
-
     redirect_to items_path
 	end
 

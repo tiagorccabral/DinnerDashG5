@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   resources :items do
     member do
-      put :add_to_cart
+      get :add_to_cart
       put :remove_from_cart
     end
   end
