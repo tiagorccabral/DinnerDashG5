@@ -9,7 +9,7 @@
     <th colspan="5">Ações</th>
   </tr>
 
-  <% @items.each do |item| %>
+  <% @items.order('name').each do |item| %>
     <tr>
       <td><%= link_to item.name, item_path(item) %></td>
       <td><%= item.description %></td>
@@ -31,13 +31,16 @@
         <% @categories.clear %>
       </td>
       <td>
-        <%= form_for :item, url: add_to_cart_item_path(item), :method => :get  do |f| %>
+        <%= form_for :item, url: add_cart_path(item), :method => :get  do |f| %>
           <%= f.number_field :quantity, :min => '0', :step => "1" %>
           <%= f.submit 'Adicionar ao carrinho' %>
         <% end %>
       </td>
        <td>
-        <%= link_to 'Remover do carrinho',  remove_from_cart_item_path(item), :method => :put %>
+        <%= form_for :item, url: remove_cart_path(item), :method => :get  do |f| %>
+          <%= f.number_field :quantity, :min => '0', :step => "1" %>
+          <%= f.submit 'Remover do carrinho' %>
+        <% end %>
       </td>
       <td><%= link_to 'Edit', edit_item_path(item) %></td>
       <td><%= link_to 'Destroy', item_path(item),
@@ -47,8 +50,10 @@
     </tr>
   <% end %>
 </table>
-<span>Carrinho: </span> <%= session[:current_cart] %>
-<br>
+<%= link_to 'Carrinho', controller: "carts" %>
+
 <p>
    [ <%= link_to 'New item', new_item_path %> | <%= link_to 'Voltar', root_path %> ]
 </p>
+
+<span>Carrinho: </span> <%= session[:current_cart] %>
