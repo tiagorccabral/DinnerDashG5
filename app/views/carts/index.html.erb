@@ -1,0 +1,19 @@
+<table class="table table-bordered">
+  <tr>
+    <th>Item</th>
+    <th>Quantity</th>
+  </tr>
+	
+	<% session[:current_cart].each do |item| %>
+  	<tr>
+  	<td>
+  		<%= link_to item[0], item_path(Item.find_by_name(item[0])) %>	
+  	</td>
+		<td>
+			<%= item[1] %>
+		</td>
+  	</tr>
+  <% end %>
+</table>
+
+<%= link_to 'Voltar', items_path %>

@@ -1,14 +1,17 @@
 Rails.application.routes.draw do
 
-  resources :items do
-    member do
-      get :add_to_cart
-      put :remove_from_cart
-    end
-  end
+  resources :items
+
   resources :categories
   get 'signup', to: 'users#new'
   resources :users, except: [:new]
+
+  resources :carts do
+     member do
+      get :add
+      get :remove
+    end
+  end
 
   get 'login', to: 'sessions#new'
   post 'login', to: 'sessions#create'
