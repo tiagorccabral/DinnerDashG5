@@ -5,8 +5,7 @@ class CartsController < ApplicationController
 	def add
     @item = Item.find(params[:id])
 		@quantity = (params[:item][:quantity]).to_i
-    
-    if session[:current_cart].key? (@item.name) 
+    if session[:current_cart].key? (@item.name)
       session[:current_cart][@item.name] += @quantity
     else
       session[:current_cart][@item.name] = @quantity
@@ -17,7 +16,6 @@ class CartsController < ApplicationController
 	def remove
     @item = Item.find(params[:id])
     @quantity = (params[:item][:quantity]).to_i
-
     if session[:current_cart].key? (@item.name)
       if session[:current_cart][@item.name] > @quantity
         session[:current_cart][@item.name] -= @quantity
