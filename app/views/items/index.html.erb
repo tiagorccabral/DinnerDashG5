@@ -1,4 +1,16 @@
 <h1 align="center">Listando Todos os Itens</h1>
+<div class="btn-group" style="left: 85%; margin: 2%" >
+  <div class="form-group">
+      <select name="filtro_categorias" class="ui fluid dropdown">
+        <option value="0">all items</option>
+        <% @categories_list.each do |categoryName| %>
+          <option value="<%= categoryName.id %>">
+            <%= categoryName.name %>
+          </option>
+        <% end %>
+      </select>
+  </div>
+</div>
 
 <table class="table table-bordered">
   <tr>

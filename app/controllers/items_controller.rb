@@ -3,6 +3,7 @@ class ItemsController < ApplicationController
 	def index
     @items = Item.all
     @categories = []
+		@categories_list = Category.all # para fazer o filtro
   end
 
   def show
