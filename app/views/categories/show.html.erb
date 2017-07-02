@@ -1,13 +1,32 @@
-<p>
-	<strong>Name:</strong>
-	<%= @category.name %>
-</p>
+<table class = "table table-bordered">
+	<tr>
+		<th colspan="3">Filtrando por <%= @category.name %></th>
+	</tr>
+	<tr>
+		<th>Name</th>
+		<th>Price</th>
+		<th>Description</th>
+	</tr>
 
-<p>
-	<strong>Items:</strong>
 	<% @category.item_ids.each do |item_id| %>
-  	<%= Item.find(item_id).name %><% if item_id != @category.item_ids.last %>;<% end %>
-  <% end %> 
-</p>
+		<% @items << Item.find(item_id).name %>
+	<% end %>
+	<% @items = @items.sort %>
+	<% @items.each do |item_id| %>
+		<tr>
+			<td>
+				<%- # Para mostrar o nome basta usar o iterador -%>
+				<%= item_id %>
+			</td>
+			<td>
+				<%-# Para mostrar preco e descrição é necessário buscar pelo item_id na tabela. -%>
+				<%= Item.find_by_name(item_id).price %>
+			</td>
+			<td>
+				<%= Item.find_by_name(item_id).description %>
+			</td>
+		</tr>
+	<% end %>
+</table>
 
-<%= link_to 'Back', categories_path %>
+<%= link_to 'Voltar para todos os itens', items_path %>

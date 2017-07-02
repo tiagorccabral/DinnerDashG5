@@ -15,9 +15,9 @@
             <% if logged_in?  %>
               <li><%= link_to 'Log out', logout_path, method: :delete %></li>
               <li class="dropdown">
-                <% user = User.find_by(params[:session]) %>
+                <% user = current_user %>
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                  <%= user.username %> 
+                  <%= user.name %>
                   <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">

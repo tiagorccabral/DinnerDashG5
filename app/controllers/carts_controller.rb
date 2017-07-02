@@ -4,14 +4,19 @@ class CartsController < ApplicationController
 
 	def add
     @item = Item.find(params[:id])
-		@quantity = (params[:item][:quantity]).to_i
-    if session[:current_cart].key? (@item.name)
+		if (params[:quantity])
+			@quantity = (params[:item][:quantity]).to_i
+		else
+			@quantity = 1
+		end
+		if session[:current_cart].key? (@item.name)
       session[:current_cart][@item.name] += @quantity
     else
       session[:current_cart][@item.name] = @quantity
     end
     redirect_to items_path
 	end
+
 
 	def remove
     @item = Item.find(params[:id])
