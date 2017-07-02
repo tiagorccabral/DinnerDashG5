@@ -1,58 +1,63 @@
-<h1 align="center">Listando Todos os Itens</h1>
-<div class="btn-group" style="left: 85%; margin: 2%" >
-  <div class="form-group">
-      <select name="filtro_categorias" class="ui fluid dropdown">
-        <option value="0">all items</option>
-        <% @categories_list.each do |categoryName| %>
-          <option value="<%= categoryName.id %>">
-            <%= categoryName.name %>
-          </option>
-        <% end %>
-      </select>
+<div>
+  <h1 align="center">Listando Todos os Itens</h1>
+  <div class="btn-group" style = "left:80%" >
+    <div class="form-group">
+        <select name="filtro_categorias" class="ui fluid dropdown">
+          <option value="0">all items</option>
+          <% @categories_list.each do |categoryName| %>
+            <option value="<%= categoryName.id %>">
+              <%= categoryName.name %>
+            </option>
+          <% end %>
+        </select>
+    </div>
   </div>
 </div>
 
+<br>
 <div class="ui container">
   <div class="ui four cards">
     <% @items.order('name').each do |item| %>
-      <div class="card">
-        <div class="image">
-          <img src="http://via.placeholder.com/300x300">
-        </div>
+    <div class="item-container">
+      <img src="http://via.placeholder.com/300x300">
+      <div class="item-content">
         <div class="content">
-          <div class="header">
+          <div class="item-name">
             <%= item.name %>
           </div>
-          <div class="description">
+          <div class = "item-description">
             <%= item.description %>
           </div>
-          <span class="right floated">
+          <div class = "item-price">
             $ <%= item.price %>
-          </span>
+          </div>
         </div>
-        <%= link_to add_cart_path(item),
-                    class: 'ui bottom attached button',
-                    id: "add-item-#{item.id}" do %>
-          <%= fa_icon 'plus' %>
-          &nbsp;&nbsp;<%= "Add to cart" %>
-        <% end %><br>
-        <%= form_for :item, url: add_cart_path(item), :method => :get  do |f| %>
-          <%= f.number_field :quantity, :min => '0', :step => "1" %>
-          <%= f.submit 'Adicionar ao carrinho' %>
-        <% end %><br>
-        <%= form_for :item, url: remove_cart_path(item), :method => :get  do |f| %>
-          <%= f.number_field :quantity, :min => '0', :step => "1" %>
-          <%= f.submit 'Remover do carrinho' %>
-        <% end %><br>
-        <%= link_to 'Destroy', item_path(item),
-                method: :delete,
-                data: { confirm: 'Are you sure?' } %>
+        <div class="item-add-cart">
+          <%= link_to add_cart_path(item),
+                      class: 'ui bottom attached button',
+                      quantity: 1,
+                      id: "add-item-#{item.id}" do %>
+            <%= fa_icon 'plus' %>
+            &nbsp;&nbsp;<%= "Add to cart" %>
+          <% end %><br>
+          <%= form_for :item, url: add_cart_path(item), :method => :get  do |f| %>
+            <%= f.number_field :quantity, :min => '0', :step => "1" %>
+            <%= f.submit 'Adicionar ao carrinho' %>
+          <% end %><br>
+          <%= form_for :item, url: remove_cart_path(item), :method => :get  do |f| %>
+            <%= f.number_field :quantity, :min => '0', :step => "1" %>
+            <%= f.submit 'Remover do carrinho' %>
+          <% end %><br>
+          <%= link_to 'Destroy', item_path(item),
+                  method: :delete,
+                  data: { confirm: 'Are you sure?' } %>
+        </div>
       </div>
+    </div>
     <% end %>
   </div>
 </div>
 
-<%= link_to 'Carrinho', controller: "carts" %>
 <p>
   [ <%= link_to 'New item', new_item_path %> | <%= link_to 'Voltar', root_path %> ]
 </p>
