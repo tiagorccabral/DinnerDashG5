@@ -16,8 +16,11 @@
     </tr>
     <% end %>
   </table>
+
+<% else %>
+  <%= current_user.id %><br> 
 <% end %>
 
 <%= session[:cart_id] %><br>
-<%= current_user.id %><br>
+
 <%= link_to 'Voltar', items_path %>
