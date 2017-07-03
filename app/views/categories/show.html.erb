@@ -3,8 +3,9 @@
 	<div class="btn-group" style = "left:80%" >
 		<div class="form-group">
 				<select name="filtro_categorias" class="ui fluid dropdown">
-					<option value="0">all items</option>
-					<% Category.all.each do |categoryName| %>
+					<option>Selecione uma categoria</option>
+          <option value="0">Todas as categorias</option>
+					<% Category.all.order("name").each do |categoryName| %>
 						<option value="<%= categoryName.id %>">
 							<%= categoryName.name %>
 						</option>

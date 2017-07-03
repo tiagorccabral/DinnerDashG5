@@ -3,8 +3,9 @@
   <div class="btn-group" style = "left:80%" >
     <div class="form-group">
         <select name="filtro_categorias" class="ui fluid dropdown">
-          <option value="0">all items</option>
-          <% @categories_list.each do |categoryName| %>
+          <option>Selecione uma categoria</option>
+          <option value="0">Todas as categorias</option>
+          <% @categories_list.order("name").each do |categoryName| %>
             <option value="<%= categoryName.id %>">
               <%= categoryName.name %>
             </option>
@@ -56,6 +57,8 @@
     <% end %>
   </div>
 </div>
+
+<%= link_to 'Carrinho', controller: "carts" %>
 
 <p>
   [ <%= link_to 'New item', new_item_path %> | <%= link_to 'Voltar', root_path %> ]
