@@ -32,11 +32,10 @@
             $ <%= item.price %>
           </div>
         </div>
-        <div class="item-add-cart">
+        <div class="item-add-cart fa">
           <%= link_to add_cart_path(item),
                       class: 'ui bottom attached button',
-                      quantity: 1,
-                      id: "add-item-#{item.id}" do %>
+                      id: ["add-item-#{item.id}"] do %>
             <%= fa_icon 'plus' %>
             &nbsp;&nbsp;<%= "Add to cart" %>
           <% end %><br>
