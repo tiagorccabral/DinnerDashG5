@@ -42,10 +42,12 @@
               <% end %>
             </li>
             <li>
-              <%= link_to items_path, class: 'item dd cart-link' do %>
+              <%= link_to carts_path, class: 'item dd cart-link' do %>
                 <%= fa_icon('shopping-cart') %>
                 <span>&nbsp;Cart&nbsp;</span>
-                <div class="ui label" id="cart-item-count">0</div>
+                <div class="ui label" id="cart-item-count">
+                  <%= count_items_and_price[0] %>
+                </div>
               <% end %>
             </li>
             <% end %>

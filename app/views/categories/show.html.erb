@@ -1,32 +1,72 @@
-<table class = "table table-bordered">
-	<tr>
-		<th colspan="3">Filtrando por <%= @category.name %></th>
-	</tr>
-	<tr>
-		<th>Name</th>
-		<th>Price</th>
-		<th>Description</th>
-	</tr>
+<div>
+	<h1 align="center">Filtrando por <%= @category.name %></h1>
+	<div class="btn-group" style = "left:80%" >
+		<div class="form-group">
+				<select name="filtro_categorias" class="ui fluid dropdown">
+					<option>Selecione uma categoria</option>
+          <option value="0">Todas as categorias</option>
+					<% Category.all.order("name").each do |categoryName| %>
+						<option value="<%= categoryName.id %>">
+							<%= categoryName.name %>
+						</option>
+					<% end %>
+				</select>
+		</div>
+	</div>
+</div>
 
-	<% @category.item_ids.each do |item_id| %>
-		<% @items << Item.find(item_id).name %>
-	<% end %>
-	<% @items = @items.sort %>
-	<% @items.each do |item_id| %>
-		<tr>
-			<td>
-				<%- # Para mostrar o nome basta usar o iterador -%>
-				<%= item_id %>
-			</td>
-			<td>
-				<%-# Para mostrar preco e descrição é necessário buscar pelo item_id na tabela. -%>
-				<%= Item.find_by_name(item_id).price %>
-			</td>
-			<td>
-				<%= Item.find_by_name(item_id).description %>
-			</td>
-		</tr>
-	<% end %>
-</table>
+<br>
+<div class="ui container">
+	<div class="ui four cards">
+		<% @category.item_ids.each do |item_id| %>
+			<% @items << Item.find(item_id).name %>
+		<% end %>
+		<% @items = @items.sort %>
 
-<%= link_to 'Voltar para todos os itens', items_path %>
+		<% @items.each do |item_name| %>
+			<% item = Item.find_by_name(item_name)%>
+
+			<div class="item-container">
+				<img src="http://via.placeholder.com/300x300">
+				<div class="item-content">
+					<div class="content">
+						<div class="item-name">
+							<%= item.name %>
+						</div>
+						<div class = "item-description">
+							<%= item.description %>
+						</div>
+						<div class = "item-price">
+							$ <%= item.price %>
+						</div>
+					</div>
+					<div class="item-add-cart fa">
+						<%= link_to add_cart_path(item),
+												class: 'ui bottom attached button',
+												id: ["add-item-#{item.id}"] do %>
+							<%= fa_icon 'plus' %>
+							&nbsp;&nbsp;<%= "Add to cart" %>
+						<% end %><br>
+						<%= form_for :item, url: add_cart_path(item), :method => :get  do |f| %>
+							<%= f.number_field :quantity, :min => '0', :step => "1" %>
+							<%= f.submit 'Adicionar ao carrinho' %>
+						<% end %><br>
+						<%= form_for :item, url: remove_cart_path(item), :method => :get  do |f| %>
+							<%= f.number_field :quantity, :min => '0', :step => "1" %>
+							<%= f.submit 'Remover do carrinho' %>
+						<% end %><br>
+						<%= link_to 'Destroy', item_path(item),
+										method: :delete,
+										data: { confirm: 'Are you sure?' } %>
+					</div>
+				</div>
+			</div>
+		<% end %>
+	</div>
+</div>
+
+<p>
+	[ <%= link_to 'New item', new_item_path %> | <%= link_to 'Voltar', root_path %> ]
+</p>
+
+<span>Carrinho: </span> <%= session[:current_cart] %>
