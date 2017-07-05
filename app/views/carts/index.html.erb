@@ -31,8 +31,7 @@
   </table>
 
 <% else %>
-  session[:cart_id] = current_user.id
-
+  <%  session[:cart_id] = current_user.id%>
   <% session[:current_cart].each do |item| %>
     <tr>
       <td>
@@ -55,7 +54,7 @@
         $ <%= count_items_and_price[1] %>
       </td>
     </tr>
-  </table> 
+  </table>
 <% end %>
 
 <%= session[:cart_id] %><br>
