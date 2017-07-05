@@ -4,28 +4,72 @@ class CartsController < ApplicationController
 
 	def add
     @item = Item.find(params[:id])
-		if (params[:quantity])
-			@quantity = (params[:item][:quantity]).to_i
-		else
-			@quantity = 1
-		end
-		if session[:current_cart].key? (@item.name)
-      session[:current_cart][@item.name] += @quantity
+    @quantity = (params[:item][:quantity]).to_i
+
+    if logged_in?
+      @user = current_user
+
+      if session[:current_cart].key? ((@user.id).to_s)
+        session[:current_cart][@user.id.to_s][@item.name] += @quantity
+      else
+        user_cart = {@item.name => @quantity}
+        session[:current_cart][@user.id] = user_cart
+      end
     else
-      session[:current_cart][@item.name] = @quantity
+      if session[:current_cart].key? ("not_logged")
+        session[:current_cart]["not_logged"][@item.name] += @quantity
+      else
+        user_cart = {@item.name => @quantity}
+        session[:current_cart]["not_logged"] = user_cart
+      end
     end
     redirect_to items_path
+	end
+
+	def add_single
+		@item = Item.find(params[:id])
+		if logged_in?
+			@user = current_user
+
+			if session[:current_cart].key? ((@user.id).to_s)
+				session[:current_cart][@user.id.to_s][@item.name] += 1
+			else
+				user_cart = {@item.name => 1}
+				session[:current_cart][@user.id] = user_cart
+			end
+		else
+			if session[:current_cart].key? ("not_logged")
+				session[:current_cart]["not_logged"][@item.name] += 1
+			else
+				user_cart = {@item.name => 1}
+				session[:current_cart]["not_logged"] = user_cart
+			end
+		end
+		redirect_to items_path
 	end
 
 
 	def remove
     @item = Item.find(params[:id])
     @quantity = (params[:item][:quantity]).to_i
-    if session[:current_cart].key? (@item.name)
-      if session[:current_cart][@item.name] > @quantity
-        session[:current_cart][@item.name] -= @quantity
-      else
-        session[:current_cart].delete(@item.name)
+
+    if logged_in?
+      @user = current_user
+
+      if session[:current_cart].key? (@user.id)
+        if session[:current_cart][@user.id][@item.name] > @quantity
+          session[:current_cart][@user.id][@item.name] -= @quantity
+        else
+          session[:current_cart].delete(@item.name)
+        end
+      end
+    else
+      if session[:current_cart].key? ("not_logged")
+        if session[:current_cart]["not_logged"][@item.name] > @quantity
+          session[:current_cart]["not_logged"][@item.name] -= @quantity
+        else
+          session[:current_cart].delete("not_logged")
+        end
       end
       redirect_to items_path
     end
@@ -33,6 +77,6 @@ class CartsController < ApplicationController
 
 private
 	def set_cart
-		session[:current_cart] ||= {}
+		session[:current_cart] = {}
 	end
 end

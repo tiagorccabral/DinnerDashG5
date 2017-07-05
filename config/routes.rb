@@ -10,6 +10,7 @@ Rails.application.routes.draw do
      member do
       get :add
       get :remove
+      get :add_single
     end
   end
 
