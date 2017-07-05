@@ -5,23 +5,21 @@ class CartsController < ApplicationController
 	def add
     @item = Item.find(params[:id])
     @quantity = (params[:item][:quantity]).to_i
+    @user = current_user
+    user_cart = {@item.name => @quantity}
 
     if logged_in?  
-      @user = current_user
-
-      if session[:current_cart].key? ((@user.id).to_s)
-        session[:current_cart][@user.id.to_s][@item.name] += @quantity
-      else
-        user_cart = {@item.name => @quantity}
-        session[:current_cart][@user.id] = user_cart
-      end
+      chave = @user.username
     else
-      if session[:current_cart].key? ("not_logged")
-        session[:current_cart]["not_logged"][@item.name] += @quantity
-      else
-        user_cart = {@item.name => @quantity}
-        session[:current_cart]["not_logged"] = user_cart
-      end      
+      chave = "not_logged"
+    end
+
+    if (!session[:current_cart].key? (chave))
+      session[:current_cart][chave] = user_cart
+    elsif (session[:current_cart][chave].key? (@item.name))
+      session[:current_cart][chave][@item.name] += @quantity
+    else
+      session[:current_cart][chave].merge!(user_cart)      
     end
     redirect_to items_path
 	end
@@ -30,31 +28,29 @@ class CartsController < ApplicationController
 	def remove
     @item = Item.find(params[:id])
     @quantity = (params[:item][:quantity]).to_i
+    @user = current_user
 
     if logged_in?
-      @user = current_user
-
-      if session[:current_cart].key? (@user.id)
-        if session[:current_cart][@user.id][@item.name] > @quantity
-          session[:current_cart][@user.id][@item.name] -= @quantity
-        else
-          session[:current_cart].delete(@item.name)
-        end
-      end
+      chave = @user.name
     else
-      if session[:current_cart].key? ("not_logged")
-        if session[:current_cart]["not_logged"][@item.name] > @quantity
-          session[:current_cart]["not_logged"][@item.name] -= @quantity
-        else
-          session[:current_cart].delete("not_logged")
+      chave = "not_logged"
+    end
+
+    if session[:current_cart].key? (chave)
+      if session[:current_cart][chave][@item.name] > @quantity
+        session[:current_cart][chave][@item.name] -= @quantity
+      else
+        session[:current_cart][chave].delete(@item.name)
+        if session[:current_cart][chave].empty?
+          session[:current_cart].delete(chave)
         end
       end
-      redirect_to items_path
     end
+    redirect_to items_path
   end
 
 private
 	def set_cart
-		session[:current_cart] = {}
+		session[:current_cart] ||= {}
 	end
 end

@@ -22,7 +22,7 @@
       <% end %>  
     <% end %>
   <% else %>
-    <% session[:current_cart][current_user.id.to_s].each do |item| %>
+    <% session[:current_cart][current_user.username].each do |item| %>
       <tr>
         <td>
           <%= link_to item[0], item_path(Item.find_by_name(item[0])) %>
