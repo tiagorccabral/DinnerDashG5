@@ -22,11 +22,16 @@ class ApplicationController < ActionController::Base
     @total_products = 0
     @total_price = 0
 
-    if (!logged_in?) || (session[:cart_id] == current_user.id)
-      if (session[:current_cart] == nil)
-        @total_products = 0
-      else
-        session[:current_cart].each do |item|
+    if (!logged_in?)
+      if (session[:current_cart] != nil && session[:current_cart].key?("not_logged"))
+        session[:current_cart]["not_logged"].each do |item|
+          @total_products += item[1]
+          @total_price += (Item.find_by_name(item[0])).price*item[1]
+        end
+      end
+    else
+      if (session[:current_cart] != nil && session[:current_cart].key?(current_user.id.to_s))
+        session[:current_cart][current_user.id.to_s].each do |item|
           @total_products += item[1]
           @total_price += (Item.find_by_name(item[0])).price*item[1]
         end
