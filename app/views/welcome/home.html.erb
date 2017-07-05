@@ -1,5 +1,7 @@
 <h1>Dinner Dash</h1>
-
+<% if logged_in? && current_user.admin? == true %>
+	<span>Você é um admin</span>
+<% end %>
 <p>
 	<% if logged_in? %>
 		[	<%= link_to 'Log out', logout_path, method: :delete %> |

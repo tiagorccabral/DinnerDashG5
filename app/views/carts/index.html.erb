@@ -31,7 +31,31 @@
   </table>
 
 <% else %>
-  <%= current_user.id %><br> 
+  session[:cart_id] = current_user.id
+
+  <% session[:current_cart].each do |item| %>
+    <tr>
+      <td>
+        <%= link_to item[0], item_path(Item.find_by_name(item[0])) %>
+      </td>
+      <td>
+        <%= item[1] %>
+      </td>
+      <td>
+        $ <%= (Item.find_by_name(item[0])).price*item[1] %>
+      </td>
+    </tr>
+    <% end %>
+    <tr>
+      <td>Total</td>
+      <td>
+        <%= count_items_and_price[0] %>
+      </td>
+      <td>
+        $ <%= count_items_and_price[1] %>
+      </td>
+    </tr>
+  </table> 
 <% end %>
 
 <%= session[:cart_id] %><br>
