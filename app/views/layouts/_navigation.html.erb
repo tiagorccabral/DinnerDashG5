@@ -21,7 +21,14 @@
                   <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a href="#">Action</a></li>
+                  <li>
+                    <%= link_to carts_path, class: 'item dd cart-link' do %>
+                      <span align = "left">Carrinho</span>
+                      <div class="ui label" id="cart-item-count">
+                        <%= count_items_and_price[0] %>
+                      </div>
+                      <% end %>
+                  </li>
                   <li><a href="#">Another action</a></li>
                   <li><a href="#">Something else here</a></li>
                   <li role="separator" class="divider"></li>
