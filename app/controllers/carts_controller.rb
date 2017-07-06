@@ -3,8 +3,12 @@ class CartsController < ApplicationController
 	before_action :set_cart
 
 	def add
+    if params[:item]
+      @quantity = (params[:item][:quantity]).to_i
+    else
+      @quantity = 1
+    end
     @item = Item.find(params[:id])
-    @quantity = (params[:item][:quantity]).to_i
     @user = current_user
     user_cart = {@item.name => @quantity}
 
@@ -23,7 +27,6 @@ class CartsController < ApplicationController
     end
     redirect_to items_path
 	end
-
 
 	def remove
     @item = Item.find(params[:id])

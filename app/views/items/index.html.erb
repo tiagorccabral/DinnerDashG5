@@ -37,7 +37,7 @@
           <%= link_to add_cart_path(item),
                       class: 'ui bottom attached button',
                       id: ["add-item-#{item.id}"] do %>
-            <%= fa_icon 'plus' %>
+            <%= fa_icon 'plus', quantity: 1 %>
             &nbsp;&nbsp;<%= "Add to cart" %>
           <% end %><br>
           <%= form_for :item, url: add_cart_path(item), :method => :get  do |f| %>

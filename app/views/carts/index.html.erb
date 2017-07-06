@@ -19,7 +19,7 @@
             $ <%= (Item.find_by_name(item[0])).price*item[1] %>
           </td>
         </tr>
-      <% end %>  
+      <% end %>
     <% end %>
   <% else %>
     <% session[:current_cart][current_user.username].each do |item| %>
