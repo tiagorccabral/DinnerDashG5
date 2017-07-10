@@ -10,14 +10,29 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
+      session[:user_id] = @user.id
       flash[:sucess] = "Bem-vindo ao DinnerDash #{@user.username}"
-      redirect_to new_item_path
+      redirect_to items_path
     else
       render 'new'
     end
   end
 
   def show
+  end
+
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      flash[:success] = "Sua conta foi atualizada com sucesso."
+      redirect_to user_path(@user)
+    else
+      render 'edit'
+    end
   end
 
   private
