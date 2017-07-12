@@ -48,9 +48,10 @@
             <%= f.number_field :quantity, :min => '0', :step => "1" %>
             <%= f.submit 'Remover do carrinho' %>
           <% end %><br>
+          <%= link_to 'Edit', edit_item_path(item) if isAdmin? %><br>
           <%= link_to 'Destroy', item_path(item),
                   method: :delete,
-                  data: { confirm: 'Are you sure?' } %>
+                  data: { confirm: 'Are you sure?' } if isAdmin? %>
         </div>
       </div>
     </div>
@@ -61,7 +62,7 @@
 <%= link_to 'Carrinho', controller: "carts" %>
 
 <p>
-  [ <%= link_to 'New item', new_item_path %> | <%= link_to 'Voltar', root_path %> ]
+  [ <%= link_to 'New item|', new_item_path if isAdmin? %> <%= link_to 'Voltar', root_path %> ]
 </p>
 
 <span>Carrinho: </span> <%= session[:current_cart] %>

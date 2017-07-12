@@ -55,9 +55,10 @@
 							<%= f.number_field :quantity, :min => '0', :step => "1" %>
 							<%= f.submit 'Remover do carrinho' %>
 						<% end %><br>
+						<%= link_to 'Edit', edit_item_path(item) if isAdmin? %><br>
 						<%= link_to 'Destroy', item_path(item),
 										method: :delete,
-										data: { confirm: 'Are you sure?' } %>
+										data: { confirm: 'Are you sure?' } if isAdmin? %>
 					</div>
 				</div>
 			</div>
