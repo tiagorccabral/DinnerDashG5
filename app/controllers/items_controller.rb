@@ -42,6 +42,9 @@ class ItemsController < ApplicationController
 
 	def destroy
     @item = Item.find(params[:id])
+
+    session[:current_cart] = {}
+
     @item.destroy
 
     redirect_to items_path
