@@ -34,7 +34,7 @@ class CartsController < ApplicationController
     @user = current_user
 
     if logged_in?
-      chave = @user.name
+      chave = @user.username
     else
       chave = "not_logged"
     end
