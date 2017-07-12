@@ -1,5 +1,7 @@
 class CategoriesController < ApplicationController
 
+  before_action :require_admin, only: [:new, :create]
+
   def index
     @categories = Category.all
     @items = []

@@ -1,6 +1,8 @@
 class ItemsController < ApplicationController
 
-	def index
+	before_action :require_admin, only: [:new, :create, :update, :destroy]
+
+  def index
     @items = Item.all
     @categories = []
 		@categories_list = Category.all # para fazer o filtro
