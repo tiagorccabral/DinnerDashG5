@@ -12,7 +12,7 @@ class CartsController < ApplicationController
     @user = current_user
     user_cart = {@item.name => @quantity}
 
-    if logged_in?  
+    if logged_in?
       chave = @user.username
     else
       chave = "not_logged"
@@ -23,7 +23,7 @@ class CartsController < ApplicationController
     elsif (session[:current_cart][chave].key? (@item.name))
       session[:current_cart][chave][@item.name] += @quantity
     else
-      session[:current_cart][chave].merge!(user_cart)      
+      session[:current_cart][chave].merge!(user_cart)
     end
     redirect_to items_path
 	end
@@ -34,7 +34,7 @@ class CartsController < ApplicationController
     @user = current_user
 
     if logged_in?
-      chave = @user.name
+      chave = @user.username
     else
       chave = "not_logged"
     end
