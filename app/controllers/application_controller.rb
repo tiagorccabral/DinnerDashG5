@@ -30,8 +30,8 @@ class ApplicationController < ActionController::Base
         end
       end
     else
-      if (session[:current_cart] != nil && session[:current_cart].key?(current_user.id.to_s))
-        session[:current_cart][current_user.id.to_s].each do |item|
+      if (session[:current_cart] != nil && session[:current_cart].key?(current_user.username))
+        session[:current_cart][current_user.username].each do |item|
           @total_products += item[1]
           @total_price += (Item.find_by_name(item[0])).price*item[1]
         end
