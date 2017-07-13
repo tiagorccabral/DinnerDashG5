@@ -49,6 +49,13 @@
   </table>
 <% end %>
 
-<%= session[:cart_id] %><br>
+<% if logged_in? %>
+  <%= form_for :order, url: orders_path do |f| %>
+    <%= f.hidden_field :value, :value => count_items_and_price[1] %>
+    <%= f.hidden_field :amount, :value => count_items_and_price[0] %>
+    <%= f.hidden_field :user_id, :value => session[:user_id] %>
 
+    <%= f.submit "Comprar" %>
+  <% end %>
+<% end %>
 <%= link_to 'Voltar', items_path %>
