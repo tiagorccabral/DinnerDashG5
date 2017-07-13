@@ -1,15 +1,36 @@
-<h1>Mostrar detalhes da order</h1>
-<%= @category.quantity %><br>
-<%= @category.subtotal %><br>
-<%= @category.id %><br>
-<% @orders.each do |ord| %>
-  <% ord.order_ids.each do |item_id| %>
-    <%= item_id %>
-    <% if item_id == @category.id %>
-      <% @items << Item.find(item_id).name %>
-    <% end %>
+<% i=1 %>
+<div class="container">
+  <h1>Mostrar detalhes da order #<%= @order.id %></h1>
+  <table class = "table table-striped">
+    <tr>
+      <th colspan="2">Item</th>
+    </tr>
+  <% @order.item_ids.each do |item_id| %>
+    <tr>
+      <td>
+        <%= i %>
+        <% i=i+1 %>
+      </td>
+      <td>
+        <%=  Item.find(item_id).name %>
+      </td>
+    </tr>
   <% end %>
-<% end %>
-<% @items.each do |itemName| %>
-  <%= itemName %><br>
-<% end %>
+    <tr>
+      <td style="font-weight:bold">
+        Quantity :
+      </td>
+      <td>
+        <%= @order.quantity %><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="font-weight:bold">
+        Total :
+      </td>
+      <td>
+        <%= @order.subtotal %><br>
+      </td>
+    </tr>
+  </table>
+</div>

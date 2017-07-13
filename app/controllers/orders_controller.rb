@@ -9,14 +9,25 @@ class OrdersController < ApplicationController
     @items_ids = params
     @order = Order.new(order_params)
     if @order.save
+      chave = current_user.username
+      session[:current_cart].delete(chave)
       redirect_to items_path
     end
   end
+
   def show
-    @orders = Order.all
-    @category = Order.find(params[:id])
-    @items = []
+    @order = Order.find(params[:id])
+    @items = {}
   end
+
+  def destroy
+    @order = Order.find(params[:id])
+    @order.status = "canceled"
+    @order.save
+    flash[:success] = "Successfully canceled..."
+    redirect_to orders_path
+  end
+
   private
     def order_params
       params.require(:order).permit(:quantity,:subtotal,:user_id,item_ids: [])
