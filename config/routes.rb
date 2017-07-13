@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   resources :items
-
+  resources :orders
   resources :categories
   get 'signup', to: 'users#new'
   resources :users, except: [:new]
