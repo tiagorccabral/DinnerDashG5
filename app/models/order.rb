@@ -1,4 +1,8 @@
 class Order < ActiveRecord::Base
-  validates :value, presence: true
-  validates :amount, presence: true
+
+  has_many :item_orders
+  has_many :items, through: :item_orders
+
+  validates :quantity, presence: true
+  validates :subtotal, presence: true
 end

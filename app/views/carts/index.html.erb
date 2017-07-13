@@ -51,9 +51,12 @@
 
 <% if logged_in? %>
   <%= form_for :order, url: orders_path do |f| %>
-    <%= f.hidden_field :value, :value => count_items_and_price[1] %>
-    <%= f.hidden_field :amount, :value => count_items_and_price[0] %>
     <%= f.hidden_field :user_id, :value => session[:user_id] %>
+    <%= f.hidden_field :quantity, :value => count_items_and_price[0] %>
+    <%= f.hidden_field :subtotal, :value => count_items_and_price[1] %>
+    <%= f.collection_check_boxes :item_ids, Item.all, :id, :name do |cb| %>
+      <% cb.label(class: "checkbox-inline input_checkbox") {cb.check_box(class: "checkbox") + cb.text} %>
+    <% end %>
 
     <%= f.submit "Comprar" %>
   <% end %>
