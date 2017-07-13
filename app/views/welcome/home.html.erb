@@ -1,15 +1,39 @@
-<h1>Dinner Dash</h1>
+<h1 align = 'center'>Dinner Dash</h1>
 <% if logged_in? && current_user.admin? == true %>
-	<span>Você é um admin</span>
+	<span><h3 align = 'center'>Você é um admin</h3></span>
 <% end %>
 <p>
+
+
 	<% if logged_in? %>
-		[	<%= link_to 'Log out', logout_path, method: :delete %> |
-		<% else %>
-			[<%= link_to 'Sign up', signup_path %> |
-			<%= link_to 'Log in', login_path %> |
+		<% if current_user.admin? == true %>
+  		<div class="container-fluid" align = 'center'>
+				<div class="btn-group btn-group-lg" role="group" aria-label="...">
+	  				<%= link_to 'Log out', logout_path, method: :delete, class: "btn btn-warning" %>
+						<%= link_to 'Categorias', categories_path, class: "btn btn-primary" %>
+						<%= link_to 'New category', new_category_path, class: "btn btn-primary"%>
+						<%= link_to 'Items list', items_path, class: "btn btn-primary" %>
+				  	<%= link_to 'Novo item', new_item_path, class: "btn btn-primary" %>
+			  </div>
+  		</div>
+			<% else %>
+			<div class="container-fluid" align = 'center'>
+				<div class="btn-group btn-group-lg" role="group" aria-label="...">
+	  				<%= link_to 'Log out', logout_path, method: :delete, class: "btn btn-warning" %>
+						<%= link_to 'Categorias', categories_path, class: "btn btn-primary" %>
+						<%= link_to 'Items list', items_path, class: "btn btn-primary" %>
+				  	<%= link_to 'Novo item', new_item_path, class: "btn btn-primary" %>
+			  </div>
+  		</div>
+		<% end %>
+	<% else %>
+	<div class="container-fluid" align = 'center'>
+		<div class="btn-group btn-group-lg" role="group" aria-label="...">
+				<%= link_to 'Sign up', signup_path, class: "btn btn-success"  %>
+				<%= link_to 'Log in', login_path, class: "btn btn-success"  %>
+				<%= link_to 'Categorias', categories_path, class: "btn btn-primary" %>
+				<%= link_to 'Items list', items_path, class: "btn btn-primary" %>
+				<%= link_to 'Novo item', new_item_path, class: "btn btn-primary" %>
+		</div>
+	</div>
 	<% end %>
-	<%= link_to 'Novo item', new_item_path %>]
-</p>
-[ <%= link_to 'Items list', controller: 'items' %> |
-	<%= link_to 'Categorias', controller: 'categories' %> ]
