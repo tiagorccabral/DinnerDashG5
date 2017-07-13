@@ -49,6 +49,18 @@
   </table>
 <% end %>
 
+<% if (!logged_in?) %>
+  <% if session[:current_cart].key?("not_logged") %>
+
+  <% end %>
+<% else %>
+  <% if session[:current_cart][current_user.username] %>
+  
+  <% end %>
+<% end %>  
+
+
+
 <%= session[:cart_id] %><br>
 
 <%= link_to 'Voltar', items_path %>
