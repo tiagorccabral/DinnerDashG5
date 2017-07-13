@@ -1,5 +1,7 @@
 class CategoriesController < ApplicationController
 
+  before_action :require_admin, only: [:new, :create]
+
   def index
     @categories = Category.all
     @items = []
@@ -7,6 +9,7 @@ class CategoriesController < ApplicationController
 
   def show
     @category = Category.find(params[:id])
+    @items = []
   end
 
   def new

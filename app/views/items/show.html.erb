@@ -1,12 +1,45 @@
-<p>
-  <strong>Name:</strong>
-  <%= @item.name %>
-</p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @item.description %>
-</p>
+<div class="ui container" align = 'center'>
+  <table class="table table-striped">
+    <tr>
+      <td>
+        <strong>Name:</strong>
+      </td>
+      <td>
+        <%= @item.name %>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <strong>Description:</strong>
+      </td>
+      <td>
+        <%= @item.description %>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <strong>Categories:</strong>
+      </td>
+      <td>
+        <%= @item.category_ids %>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <strong>Price:</strong>
+      </td>
+      <td>
+        <%= @item.price %>
+      </td>
+    </tr>
+  </table>
+
+</div>
+
 
 <% if @item.categories.any? %>
 
@@ -19,9 +52,6 @@
 
 </p>
 
-<p>
-  <strong>Price:</strong>
-  <%= @item.price %>
-</p>
-
-<%= link_to 'Back', items_path %>
+<div align = 'center'>
+  <%= link_to 'Back', items_path, class: "btn btn-primary"%>
+</div>

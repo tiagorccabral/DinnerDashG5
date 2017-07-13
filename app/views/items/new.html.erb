@@ -2,7 +2,7 @@
 
 <%= render 'shared/errors', obj: @item %>
 
-<%= form_for :item, url: items_path do |f| %>
+<%= form_for :item, html: {class: "form-horizontal center"},  url: items_path do |f| %>
 
   <p>
     <%= f.label :name %><br>
@@ -21,7 +21,7 @@
 
 	<p>
 		<%= f.label :price %><br>
-		  <%= f.number_field :price, :step => "0.01" %>
+		  <%= f.number_field :price, :min => '0', :step => "0.01" %>
 	</p>
 
   <p>

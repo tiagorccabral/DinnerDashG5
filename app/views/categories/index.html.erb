@@ -1,33 +1,33 @@
-<h1>Listing categories</h1>
+<h1 align = "center">Listing categories</h1>
 
-<table class="table table-bordered">
-  <tr>
-    <th>Name</th>
-    <th>Items</th>
-  </tr>
-
-  <% @categories.order('name').each do |category| %>
+<div class="ui container-fluid" align='center'>
+  <table class="table table-striped">
     <tr>
-      <td><%= link_to category.name, category_path(category)  %></td>
-      <td>
-      	<% category.item_ids.each do |item_id| %>
-          <% @items << Item.find(item_id).name %>
-        <% end %>
+      <th>Name</th>
+      <th>Items</th>
+    </tr>
 
-        <% @items = @items.sort %>
-
-        <% @items.each do |itemName| %>
-          <%= link_to itemName, item_path(Item.find_by_name(itemName)) %>
-          <% if itemName != @items.last %>
-            <span>|</span>
+    <% @categories.order('name').each do |category| %>
+      <tr>
+        <td><%= link_to category.name, category_path(category), class:"btn btn-success" %></td>
+        <td>
+        	<% category.item_ids.each do |item_id| %>
+            <% @items << Item.find(item_id).name %>
           <% end %>
-        <% end %>
 
-        <% @items.clear %> 
-      </td>
-  <% end %>
-</table>
-<br>
+          <% @items = @items.sort %>
 
-<%= link_to 'New category', new_category_path %>
-<%= link_to 'Voltar', root_path %>
+          <% @items.each do |itemName| %>
+            <span class = "label label-info"><%= link_to itemName, item_path(Item.find_by_name(itemName)) %></span>
+          <% end %>
+
+          <% @items.clear %>
+        </td>
+    <% end %>
+  </table>
+  <br>
+
+</div>
+<div align = "center">
+  <%= link_to 'Voltar', root_path, class: "btn btn-primary" %> <%= link_to 'New category', new_category_path, class: "btn btn-primary" if isAdmin? %> 
+</div>

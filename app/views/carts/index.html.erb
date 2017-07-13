@@ -1,0 +1,54 @@
+<table class="table table-bordered">
+  <tr>
+    <th>Item</th>
+    <th>Quantity</th>
+    <th>Price</th>
+  </tr>
+
+  <% if (!logged_in?) %>
+    <% if session[:current_cart].key?("not_logged") %>
+      <% session[:current_cart]["not_logged"].each do |item| %>
+        <tr>
+          <td>
+            <%= link_to item[0], item_path(Item.find_by_name(item[0])) %>
+          </td>
+          <td>
+            <%= item[1] %>
+          </td>
+          <td>
+            $ <%= (Item.find_by_name(item[0])).price*item[1] %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  <% else %>
+  <% if session[:current_cart][current_user.username] %>
+      <% session[:current_cart][current_user.username].each do |item| %>
+        <tr>
+          <td>
+            <%= link_to item[0], item_path(Item.find_by_name(item[0])) %>
+          </td>
+          <td>
+            <%= item[1] %>
+          </td>
+          <td>
+            $ <%= (Item.find_by_name(item[0])).price*item[1] %>
+          </td>
+        </tr>
+      <% end %>
+  <% end %>
+    <tr>
+      <td>Total</td>
+      <td>
+        <%= count_items_and_price[0] %>
+      </td>
+      <td>
+        $ <%= count_items_and_price[1] %>
+      </td>
+    </tr>
+  </table>
+<% end %>
+
+<%= session[:cart_id] %><br>
+
+<%= link_to 'Voltar', items_path %>
