@@ -86,6 +86,6 @@ test:
 production:
   <<: *default
   database: DinnerDashDB
-  username: tiagocabral
+  username: ptiagocabral
   password: postgres
   password: <%= ENV['DINNERDASH_DATABASE_PASSWORD'] %>
